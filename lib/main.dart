@@ -1,3 +1,4 @@
+import 'package:camera_app/screens/login_page.dart';
 import 'package:camera_app/screens/splash_screen.dart';
 import 'package:camera_app/theme/darkmode.dart';
 import 'package:camera_app/theme/lightmode.dart';
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: lightMode,
       darkTheme: darkMode,
-      home: SplashScreen(),
+      home: LoginPage(),
     );
   }
 }
