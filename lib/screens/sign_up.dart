@@ -1,12 +1,15 @@
-import 'package:camera_app/screens/sign_up.dart';
+import 'package:camera_app/screens/login_page.dart';
+import 'package:camera_app/services/auth_services.dart';
 import 'package:camera_app/widgets/input_textfeild.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
-  LoginPage({super.key});
+class SignUp extends StatelessWidget {
+  SignUp({super.key});
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passController = TextEditingController();
+  final TextEditingController confirmPassController = TextEditingController();
+  final AuthServices auth = AuthServices();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +38,7 @@ class LoginPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                "LOGIN",
+                "SIGN UP",
                 style: TextStyle(
                   fontSize: 30,
                   color: Theme.of(context).colorScheme.tertiary,
@@ -62,16 +65,48 @@ class LoginPage extends StatelessWidget {
                   color: Theme.of(context).colorScheme.primary,
                 ),
               ),
+              InputTextfeild(
+                text: "C O N F I R M  P A S S W O R D",
+                obscure: true,
+                controller: confirmPassController,
+                prefixIcon: Icon(
+                  Icons.password,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+              ),
               const SizedBox(
                 height: 30,
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  if (emailController.text.isEmpty ||
+                      passController.text.isEmpty ||
+                      confirmPassController.text.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text("Enter all information"),
+                        duration: Duration(seconds: 1),
+                      ),
+                    );
+                  } else if (passController.text !=
+                      confirmPassController.text) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text("Password not matched!"),
+                        duration: Duration(seconds: 1),
+                      ),
+                    );
+                  } else {
+                    print("khubaib");
+                    auth.signUp(emailController.text,
+                        confirmPassController.text, context);
+                  }
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Theme.of(context).colorScheme.tertiary,
                 ),
                 child: Text(
-                  "Login",
+                  "Sign up",
                   style: TextStyle(
                     fontSize: 25,
                     color: Theme.of(context).colorScheme.primary,
@@ -85,7 +120,7 @@ class LoginPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Don't have an account ",
+                    "Already have an account ",
                     style: TextStyle(
                       fontSize: 15,
                       color: Theme.of(context).colorScheme.tertiary,
@@ -96,12 +131,12 @@ class LoginPage extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => SignUp(),
+                          builder: (context) => LoginPage(),
                         ),
                       );
                     },
                     child: Text(
-                      "Sign Up",
+                      "Login",
                       style: TextStyle(
                         fontSize: 15,
                         color: Theme.of(context).colorScheme.tertiary,
