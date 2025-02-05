@@ -97,9 +97,9 @@ class SignUp extends StatelessWidget {
                       ),
                     );
                   } else {
-                    print("khubaib");
-                    auth.signUp(emailController.text,
-                        confirmPassController.text, context);
+                    //print("khubaib");
+                    auth.signUp(emailController.text.toString().trim(),
+                        confirmPassController.text.toString().trim(), context);
                   }
                 },
                 style: ElevatedButton.styleFrom(

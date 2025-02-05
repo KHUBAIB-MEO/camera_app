@@ -1,4 +1,5 @@
 import 'package:camera_app/screens/sign_up.dart';
+import 'package:camera_app/services/auth_services.dart';
 import 'package:camera_app/widgets/input_textfeild.dart';
 import 'package:flutter/material.dart';
 
@@ -7,6 +8,7 @@ class LoginPage extends StatelessWidget {
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passController = TextEditingController();
+  final AuthServices auth = AuthServices();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,7 +68,10 @@ class LoginPage extends StatelessWidget {
                 height: 30,
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  auth.login(emailController.text.toString().trim(),
+                      passController.text.toString().trim(), context);
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Theme.of(context).colorScheme.tertiary,
                 ),
