@@ -8,11 +8,6 @@ class AuthServices {
   void signUp(
       String userEmail, String userPassword, BuildContext context) async {
     try {
-      final credential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: userEmail,
-        password: userPassword,
-      );
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Account Created Successfully')),
       );
@@ -61,8 +56,6 @@ class AuthServices {
   void login(
       String userEmail, String userPassword, BuildContext context) async {
     try {
-      final credential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: userEmail, password: userPassword);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Account Login Successfully')),
       );
