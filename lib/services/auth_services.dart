@@ -1,3 +1,5 @@
+import 'package:camera_app/screens/home_page.dart';
+import 'package:camera_app/screens/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +16,12 @@ class AuthServices {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Account Created Successfully')),
       );
+
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => LoginPage(),
+          ));
     } on FirebaseAuthException catch (e) {
       //print(e);
       if (e.code == 'weak-password') {
@@ -58,6 +66,11 @@ class AuthServices {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Account Login Successfully')),
       );
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => HomePage(),
+          ));
     } on FirebaseAuthException catch (e) {
       print(e);
       if (e.code == 'user-not-found') {
@@ -79,11 +92,16 @@ class AuthServices {
         print("K H U B A I B");
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text("Incorrect password"),
+            content: Text("Incorrect email or password"),
             duration: Duration(seconds: 1),
           ),
         );
       }
     }
+  }
+
+  //SIGNOUT FUNCTION//
+  void signOut() async {
+    await FirebaseAuth.instance.signOut();
   }
 }
